@@ -465,7 +465,7 @@ and note that (base) is added to commandline prompt
     c.NotebookApp.open_browser = False
     c.NotebookApp.port = 8888
 
-12 add password=/<jupyter-password/> to notebook
+12 add password=\<jupyter-password\> to notebook
 
     jupyter notebook password
 
