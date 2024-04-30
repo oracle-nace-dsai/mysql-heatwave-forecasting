@@ -136,7 +136,7 @@ and note column names:
     storage=1Tb
     Disable backup plan
     Advanced options > Connections > Hostname=<your-MYSQL-name> #needed to connect OAC to mysql
-    FQDN=Hostname=JoeHahnMysql3.sub07172323591.joehahnvcn.oraclevcn.com
+    FQDN=<your-FQDN>
     Private ip=<mysql-private-ip>
     Mysql port=3306
 
@@ -152,7 +152,7 @@ and note column names:
 
 1 use cloud shell to ssh into VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
 
 3 use mysqlsh to connect to db
 
@@ -168,7 +168,7 @@ and note column names:
 
 1 use cloud shell to ssh into VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
     cd mysql-heatwave-demo
 
 2 use mysqlsh on VM to tell database to execute prep_data.sql script, which preps data for ML model training
@@ -184,7 +184,7 @@ and note column names:
 
 1 start mysqlsh session on VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
     cd mysql-heatwave-demo
     mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
@@ -317,7 +317,7 @@ and note that the predictions are also embedded in a json column
 
 1 ssh from cloud shell to VM and start mysqlsh session
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
     mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
 2 extract feature importance from model
@@ -415,7 +415,7 @@ install anaconda python, adapted from https://docs.oracle.com/en/solutions/machi
 
 1 use cloud shell to ssh into VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
 
 2 update firewall rules
 
@@ -487,7 +487,7 @@ and note that (base) is added to commandline prompt
 
 1 use cloud shell to ssh into VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
 
 2 start jupyter
 
@@ -539,7 +539,7 @@ For crimes_filtered_sub, change latitude and longitude type from measure to attr
 
 1 access mysql
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
     cd ~/mysql-heatwave-demo
     mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
