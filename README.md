@@ -491,7 +491,7 @@ and note that (base) is added to commandline prompt
 
 3 browse jupyter at
 
-    https://132.145.171.157:8888
+    https://<VM-Public-IP>:8888
 
 4 execute predictions_vs_actuals.ipynb notebook to generate a scatterplot of model predictions vs actuals
 
