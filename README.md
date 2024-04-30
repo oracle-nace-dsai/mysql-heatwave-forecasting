@@ -53,7 +53,7 @@ where \<VM-Public-IP\> is your VM's public IP
 
 4 ssh into VM
 
-    ssh opc@\<VM-Public-IP\>
+    ssh opc@<VM-Public-IP>
 
 5 create ssh key on VM
 
