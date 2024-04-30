@@ -38,7 +38,7 @@ and note the public key
 
 3 create VM with these settings
 
-    name=<your-VCN>
+    name=<your-VM>
     shape=VM.Standard.E4.Flex
     ocpu=2
     VCN=<your-VCN>
