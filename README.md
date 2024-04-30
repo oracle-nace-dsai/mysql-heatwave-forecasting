@@ -501,7 +501,6 @@ set up OAC and connect to mysql-hw per https://plforacle.github.io/heatwave-turb
 1 launch OAC
 
     name=<your-OAC>
-    access url=https://joehahnoac2-orasenatdpltintegration03-ia.analytics.ocp.oraclecloud.com/ui/
     capacity=2 ocpus
 
 2 configure private access channel
