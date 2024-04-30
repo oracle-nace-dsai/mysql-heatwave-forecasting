@@ -124,21 +124,21 @@ and note column names:
 1 launch mysql heatWave with these settings
 
     Development
-    compartment=orasenatdpltintegration03 (root)/BigData/SA/JoeHahn
-    Name=JoeHahnMysql3
+    Name=<your-MYSQL-name>
     standalone
     mysql heatwave
     admin=admin
-    password=Welcome12345!
-    VCN=JoeHahnVCN in JoeHahn compartment
-    Subnet=private subnet-JoeHahnVCN (Regional)
+    password=<Mysql-password>
+    VCN=<your-VCN>
+    Subnet=private subnet-<your-VCN> (Regional)
     cpu=16
     memory=512Gb
     storage=1Tb
     Disable backup plan
-    Advanced options > Connections > Hostname=JoeHahnMysql3 #needed to connect OAC to mysql
+    Advanced options > Connections > Hostname=<your-MYSQL-name> #needed to connect OAC to mysql
     FQDN=Hostname=JoeHahnMysql3.sub07172323591.joehahnvcn.oraclevcn.com
-    Private ip=10.0.1.213
+    #Private ip=10.0.1.213
+    Private ip=<mysql-private-ip>
     Mysql port=3306
 
 2 add heatwave cluster with
@@ -157,12 +157,12 @@ and note column names:
 
 3 use mysqlsh to connect to db
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --sql
     show databases;
 
 4 use mysqlsh to execute load_data.sql, which loads csv from ObjStore into mysql table
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --sql < load_data.sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --sql < load_data.sql
 
 
 ### prep data for ML & train model:
@@ -174,7 +174,7 @@ and note column names:
 
 2 use mysqlsh on VM to tell database to execute prep_data.sql script, which preps data for ML model training
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213  --sql < prep_data.sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip>  --sql < prep_data.sql
 
 3 exit mysqlsh
 
@@ -187,7 +187,7 @@ and note column names:
 
     ssh opc@132.145.171.157
     cd mysql-heatwave-demo
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --database=Chicago --sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
 
 2 tell AutoML to swiftly train model using LinearRegression and RandomForestRegressor algos only, in 1min
 
@@ -319,7 +319,7 @@ and note that the predictions are also embedded in a json column
 1 ssh from cloud shell to VM and start mysqlsh session
 
     ssh opc@132.145.171.157
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --database=Chicago --sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
 
 2 extract feature importance from model
 
@@ -542,7 +542,7 @@ For crimes_filtered_sub, change latitude and longitude type from measure to attr
 
     ssh opc@132.145.171.157
     cd ~/mysql-heatwave-demo
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --database=Chicago --sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
 
 2 count daily thefts, narcotics, and weapons across chicago
 
@@ -588,7 +588,7 @@ For crimes_filtered_sub, change latitude and longitude type from measure to attr
 
 5 alternatively, execute the following mysql script to do the above:
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213  --sql < pivot_data.sql
+    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip>  --sql < pivot_data.sql
 
 6 train forecasting model on data from 2014 to late 2018 to predict number of thefts, narcotics, and weapons violations across all of chicago through 2019
 
@@ -660,69 +660,5 @@ keeping in mind that OAC doesnt like json type, so recast json columns as floats
 
 13 use OAC to compare regression model predictions to forecasting model predictions, see Chicago.dva
 
-
-### oci costs
-
-OCP cost estimator
-
-1 Database - HeatWave, 1024Gb storage, 1 node, $304/month = $0.42/hr
-
-2 Analytics - Analytics Cloud, professional, 2ocpu, $1600/month = $2.22/hr
-
-3 Compute, VM.Standard.E4.Flex, 32Gb, 256Gb block storage = $84/month = $0.12/hour
-
-4 total = $2.76/hour
-
-5 assume 3 hours to rebuild, total cost = $8.28
-
-6 OAC fraction = 80%
-
-
-### to do:
-
-1 connect VM to mysql via private IP
-
-2 download data directly to ObjStore rather than into VM
-
-3 register mysql model with OAC?
-
-
-### notes
-
-1 turn off heatwave
-
-    SET SESSION use_secondary_engine=OFF;
-
-2 turn heatwave back on
-
-    SET SESSION use_secondary_engine=ON;
-
-3 Perside's livelabs
-
-    https://plforacle.github.io/heatwave-lakehouse//workshops/ocw23-freetier/index.html?lab=develop 
-    https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=3306&p210_wec=&session=4933982641293
-    https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=878&p210_wec=&session=14254071566283
-    https://plforacle.github.io/heatwave-turbo//mysql-heatwave-intro/workshops/ocw23-freetier/index.html?lab=do-oac
-
-4 mysql-hw user guide
-
-    https://dev.mysql.com/doc/heatwave/en/mys-hw-introduction.html
-
-5 use oci to get dets about mysql instance
-
-    oci mysql db-system                  get --db-system-id ocid1.mysqldbsystem.oc1.iad.aaaaaaaaw5pwtp2h7lmbcklxwvdgmoaesc5s2ncz74tcdtok6fha6xmuq4jq 
-    oci mysql db-system heatwave-cluster get --db-system-id ocid1.mysqldbsystem.oc1.iad.aaaaaaaaw5pwtp2h7lmbcklxwvdgmoaesc5s2ncz74tcdtok6fha6xmuq4jq
-
-
-### other
-
-1
-
-host=10.0.1.189
-query="select ID, Date, Block, Primary_Type, Description, Location_Description, Ward, Latitude, Longitude from crimes limit 10;"
-mysqlsh --user=admin --host=$host --database=chicago --sql
-
-mysqlsh --user=admin --host=$host --sql < $query
-mysqlsh --user=admin --host=$host --sql
 
 
