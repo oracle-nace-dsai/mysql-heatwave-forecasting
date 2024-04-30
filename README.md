@@ -224,10 +224,11 @@ by telling automl not to consider LR and XGBR, we trick it into searching for a 
 
 4 get optimized model's settings
 
-    set @next_model='Chicago.train_admin_1695680450';
+    set @next_model='Chicago.train_admin_<model_id>';
     select * from ML_SCHEMA_admin.MODEL_CATALOG where (model_handle=@next_model);
 
-which shows that AutoML's preferred algo is LGBMRegressor and that it didnt drop any features since
+where <model_id> refers to the ID of the best performing model that was trained by AutoML.
+The above also shows that AutoML's preferred algo is LGBMRegressor and that it didnt drop any features since
 "selected_column_names": "N_change", "N_current", "Primary_Type", "Ward", "Week", "Year"]
 
 5 issue above query from VM and use jq to pretty print
