@@ -128,7 +128,7 @@ and note column names:
     standalone
     mysql heatwave
     admin=admin
-    password=<Mysql-password>
+    password=<MYSQL-password>
     VCN=<your-VCN>
     Subnet=private subnet-<your-VCN> (Regional)
     cpu=16
@@ -137,7 +137,6 @@ and note column names:
     Disable backup plan
     Advanced options > Connections > Hostname=<your-MYSQL-name> #needed to connect OAC to mysql
     FQDN=Hostname=JoeHahnMysql3.sub07172323591.joehahnvcn.oraclevcn.com
-    #Private ip=10.0.1.213
     Private ip=<mysql-private-ip>
     Mysql port=3306
 
@@ -157,12 +156,12 @@ and note column names:
 
 3 use mysqlsh to connect to db
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --sql
     show databases;
 
 4 use mysqlsh to execute load_data.sql, which loads csv from ObjStore into mysql table
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --sql < load_data.sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --sql < load_data.sql
 
 
 ### prep data for ML & train model:
@@ -174,7 +173,7 @@ and note column names:
 
 2 use mysqlsh on VM to tell database to execute prep_data.sql script, which preps data for ML model training
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip>  --sql < prep_data.sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip>  --sql < prep_data.sql
 
 3 exit mysqlsh
 
@@ -187,7 +186,7 @@ and note column names:
 
     ssh opc@132.145.171.157
     cd mysql-heatwave-demo
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
 2 tell AutoML to swiftly train model using LinearRegression and RandomForestRegressor algos only, in 1min
 
@@ -319,7 +318,7 @@ and note that the predictions are also embedded in a json column
 1 ssh from cloud shell to VM and start mysqlsh session
 
     ssh opc@132.145.171.157
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
 2 extract feature importance from model
 
@@ -542,7 +541,7 @@ For crimes_filtered_sub, change latitude and longitude type from measure to attr
 
     ssh opc@132.145.171.157
     cd ~/mysql-heatwave-demo
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip> --database=Chicago --sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip> --database=Chicago --sql
 
 2 count daily thefts, narcotics, and weapons across chicago
 
@@ -588,7 +587,7 @@ For crimes_filtered_sub, change latitude and longitude type from measure to attr
 
 5 alternatively, execute the following mysql script to do the above:
 
-    mysqlsh --user=admin --password1=Welcome12345! --host=<mysql-private-ip>  --sql < pivot_data.sql
+    mysqlsh --user=admin --password1=<MYSQL-password> --host=<mysql-private-ip>  --sql < pivot_data.sql
 
 6 train forecasting model on data from 2014 to late 2018 to predict number of thefts, narcotics, and weapons violations across all of chicago through 2019
 
