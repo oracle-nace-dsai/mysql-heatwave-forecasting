@@ -502,14 +502,13 @@ set up OAC and connect to mysql-hw per https://plforacle.github.io/heatwave-turb
 
 1 launch OAC
 
-    name=JoeHahnOAC2
+    name=<your-OAC>
     access url=https://joehahnoac2-orasenatdpltintegration03-ia.analytics.ocp.oraclecloud.com/ui/
     capacity=2 ocpus
 
 2 configure private access channel
 
-    name=OAC2Mysql
-    check Virtual Cloud Network's domain name as DNS zone (joehahnvcn.oraclevcn.com)
+    name=<your-OAC>
     delete 2nd DNS zone
 
 takes 30min
