@@ -136,7 +136,7 @@ and note column names:
     storage=1Tb
     Disable backup plan
     Advanced options > Connections > Hostname=<your-MYSQL-name> #needed to connect OAC to mysql
-    FQDN=<your-FQDN>
+    FQDN=<your-MYSQL-FQDN>
     Private ip=<mysql-private-ip>
     Mysql port=3306
 
@@ -522,12 +522,12 @@ takes 30min
 
 3 create OAC connection to heatwave
 
-    name=JoeHahnMysql3
-    host=JoeHahnMysql3.sub07172323591.joehahnvcn.oraclevcn.com
+    name=<your-MYSQL-name>
+    host=<your-MYSQL-FQDN>
     port=3306
     database=Chicago
     user=admin
-    password=Welcome12345!
+    password=<MYSQL-password>
 
 4 create OAC datasets on tables test_predict, valid_predict, feature_importance, and crimes_filtered_sub tables.
 For crimes_filtered_sub, change latitude and longitude type from measure to attribute.
