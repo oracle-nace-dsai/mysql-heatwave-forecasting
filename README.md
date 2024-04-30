@@ -318,7 +318,7 @@ and note that the predictions are also embedded in a json column
 
 2 extract feature importance from model
 
-    set @next_model='Chicago.train_admin_1695680450';
+    set @next_model='Chicago.train_admin_<model_id>'';
     CALL sys.ML_MODEL_LOAD(@next_model, NULL);
     SELECT model_explanation FROM ML_SCHEMA_admin.MODEL_CATALOG WHERE (model_handle=@next_model);
 
