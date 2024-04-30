@@ -19,7 +19,7 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
     Destination port range=3306,33060
     description=MySQL Port Access
 
-3 add ingress rules to public subnet-<your-VCN> Default Security List
+3 add ingress rules to public subnet-\<your-VCN\> Default Security List
 
     source cidr=0.0.0.0/0
     Destination port range=80,443
@@ -39,21 +39,21 @@ and note the public key
 
 3 create VM with these settings
 
-    name=<your-VCN>
+    name=\<your-VCN\>
     shape=VM.Standard.E4.Flex
     ocpu=2
-    VCN=<your-VCN>
-    Subnet=public subnet-<your-VCN> (Regional)
+    VCN=\<your-VCN\>
+    Subnet=public subnet-\<your-VCN\> (Regional)
     Public key=above public key
     Boot volume=256
     Public IP=132.145.171.157
     Public IP=<VM-Public-IP>
 
-where <VM-Public-IP> is your VM's public IP
+where \<VM-Public-IP\> is your VM's public IP
 
 4 ssh into VM
 
-    ssh opc@<VM-Public-IP>
+    ssh opc@\<VM-Public-IP\>
 
 5 create ssh key on VM
 
