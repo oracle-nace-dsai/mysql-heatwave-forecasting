@@ -35,15 +35,15 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
 
 and note the public key
 
-2 copy keys to laptop since cloud shell files can disappear a few weeks or months
+2 copy keys to your desktop since cloud shell files can disappear a few weeks or months
 
 3 create VM with these settings
 
-    name=\<your-VCN\>
+    name=<your-VCN>
     shape=VM.Standard.E4.Flex
     ocpu=2
-    VCN=\<your-VCN\>
-    Subnet=public subnet-\<your-VCN\> (Regional)
+    VCN=<your-VCN>
+    Subnet=public subnet-<your-VCN> (Regional)
     Public key=above public key
     Boot volume=256
     Public IP=132.145.171.157
