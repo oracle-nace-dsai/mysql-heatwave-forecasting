@@ -102,7 +102,7 @@ takes a few minutes to download 2Gb file containing 8M records
 
 2 put csv into ObjStore
 
-    ns=<your-bucket-namespace>
+    ns=<your-ObjStore-namespace>
     bucket_name=<your-bucket-name>
     source_file=data/crimes.csv
     destination_file=chicago/crimes.csv
@@ -117,8 +117,6 @@ and note column names:
     ID,Case Number,Date,Block,IUCR,Primary Type,Description,Location Description,Arrest,Domestic,Beat,District,Ward,Community Area,FBI Code,X Coordinate,Y Coordinate,Year,Updated On,Latitude,Longitude,Location
 
 4 create par to object crimes.csv
-
-    url=<par-url>
 
 
 ### create MySQL-Heatwave cluster:
