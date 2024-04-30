@@ -395,8 +395,6 @@ docs call this permutation_importance explanations
     CALL sys.ML_EXPLAIN_TABLE('Chicago.test_sample', @next_model, 'Chicago.test_explain_shap', JSON_OBJECT('prediction_explainer', 'permutation_importance', 'model_explainer', 'shap'));
     SELECT * FROM Chicago.test_explain_shap where (_id=3) \G;
 
-the docs refer to this as Shapley explanations, which look identical to the above
-
 
 ### install anaconda python on VM
 
