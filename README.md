@@ -45,7 +45,6 @@ and note the public key
     Subnet=public subnet-<your-VCN> (Regional)
     Public key=above public key
     Boot volume=256
-    #Public IP=132.145.171.157
     Public IP=<VM-Public-IP>
 
 where \<VM-Public-IP\> is your VM's public IP
