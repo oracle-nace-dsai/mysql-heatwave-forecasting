@@ -231,22 +231,17 @@ where <model_id> refers to the ID of the best performing model that was trained 
 The above also shows that AutoML's preferred algo is LGBMRegressor and that it didnt drop any features since
 "selected_column_names": "N_change", "N_current", "Primary_Type", "Ward", "Week", "Year"]
 
-5 issue above query from VM and use jq to pretty print
-
-    query="SELECT QEXEC_TEXT FROM performance_schema.rpd_query_stats WHERE QUERY_TEXT='ML_TRAIN' ORDER BY QUERY_ID DESC limit 1;"
-    mysqlsh --user=admin --password1=Welcome12345! --host=10.0.1.213 --sql -e "$query" | tail -n +2 | jq
-
-6 get model's R2=0.90
+5 get model's R2=0.90
 
     CALL sys.ML_MODEL_LOAD(@next_model, NULL);
     CALL sys.ML_SCORE('Chicago.test', 'N_next', @next_model, 'r2', @score, NULL);
     select @score;
 
-7 -1x mean absolute error=-2.7
+6 -1x mean absolute error=-2.7
 
     CALL sys.ML_SCORE('Chicago.test', 'N_next', @next_model, 'neg_mean_absolute_error', @score, NULL); select @score;
 
-8 compare test and train predictions, to check for overfitting
+7 compare test and train predictions, to check for overfitting
 
     CALL sys.ML_SCORE('Chicago.test',  'N_next', @next_model, 'neg_mean_absolute_error', @score, NULL); select @score;
     CALL sys.ML_SCORE('Chicago.train', 'N_next', @next_model, 'neg_mean_absolute_error', @score, NULL); select @score;
@@ -256,7 +251,7 @@ The above also shows that AutoML's preferred algo is LGBMRegressor and that it d
 
 which shows only slight overfitting
 
-9 append predictions column to test table
+8 append predictions column to test table
 
     drop table if exists test_predict_json;
     CALL sys.ML_PREDICT_TABLE('Chicago.test', @next_model, 'Chicago.test_predict_json', NULL);
@@ -264,7 +259,7 @@ which shows only slight overfitting
 
 and note that the predictions are also embedded in a json column
 
-10 extract N_next_predict from above
+9 extract N_next_predict from above
 
     drop table if exists test_predict;
     create table test_predict as
@@ -272,7 +267,7 @@ and note that the predictions are also embedded in a json column
     drop table if exists test_predict_json;
     select * from test_predict limit 5;
 
-12 compute model's median fractional error=0.27
+10 compute model's median fractional error=0.27
 
     drop table if exists fractional_errors;
     create table fractional_errors as
@@ -286,7 +281,7 @@ and note that the predictions are also embedded in a json column
     limit 1;
     drop table fractional_errors;
 
-13 append predictions to validation sample
+11 append predictions to validation sample
 
     drop table if exists valid_predict_json;
     CALL sys.ML_PREDICT_TABLE('Chicago.valid', @next_model,'Chicago.valid_predict_json', NULL);
@@ -296,20 +291,20 @@ and note that the predictions are also embedded in a json column
     drop table if exists valid_predict_json;
     select * from valid_predict order by rand(17) limit 5;
 
-14 show all available models
+12 show all available models
 
     SELECT model_id, model_handle, train_table_name FROM ML_SCHEMA_admin.MODEL_CATALOG;
 
-15 delete an older model
+13 delete an older model
 
     DELETE FROM ML_SCHEMA_admin.MODEL_CATALOG WHERE model_id=1;
     SELECT model_id, model_handle, train_table_name FROM ML_SCHEMA_admin.MODEL_CATALOG;
 
-16 unload model
+14 unload model
 
     CALL sys.ML_MODEL_UNLOAD(@next_model);
 
-17 exit mysqlsh
+15 exit mysqlsh
 
     \q
 
