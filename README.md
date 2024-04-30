@@ -60,8 +60,6 @@ where \<VM-Public-IP\> is your VM's public IP
     ssh-keygen -t rsa
     cat ~/.ssh/id_rsa.pub
 
-and paste public key into your gitlab account
-
 6 install git
 
     sudo yum install git -y
@@ -85,7 +83,7 @@ using default values except for user & tenancy ocids and region index
 
     cat ~/.oci/oci_api_key_public.pem
 
-into OCI user API keys > Add API key
+into OCI user > API keys > Add API key
 
 11 install mysqlsh
 
