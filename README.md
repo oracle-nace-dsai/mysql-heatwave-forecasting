@@ -13,7 +13,7 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
 
 1 use VCN Wizard to create VCN using the default settings. In the following, <your-VCN> will refer the name of the VCN you just created
 
-2 add ingress rules to private subnet-<your-VCN>
+2 add ingress rules to private subnet-\<your-VCN\>
 
     source cidr=0.0.0.0/0
     Destination port range=3306,33060
