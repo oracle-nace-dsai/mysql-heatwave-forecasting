@@ -11,11 +11,7 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
 
 ### create VCN:
 
-1 create VCN
-
-    Start VCN Wizard
-    name=JoeHahnVCN
-    compartment=orasenatdpltintegration03 (root)/BigData/SA/JoeHahn
+1 use VCN Wizard to create VCN using the default settings. In the following, <your-VCN> will refer the name of the VCN you just created
 
 2 add ingress rules to private subnet-JoeHahnVCN
 
@@ -23,7 +19,7 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
     Destination port range=3306,33060
     description=MySQL Port Access
 
-3 add ingress rules to public subnet-JoeHahnVCN Default Security List
+3 add ingress rules to public subnet-<your-VCN> Default Security List
 
     source cidr=0.0.0.0/0
     Destination port range=80,443
@@ -39,24 +35,25 @@ Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p
 
 and note the public key
 
-2 copy keys to laptop since cloud shell files can dissappear a few weeks or months
+2 copy keys to laptop since cloud shell files can disappear a few weeks or months
 
 3 create VM with these settings
 
-    name=JoeHahnVM
-    compartment=orasenatdpltintegration03 (root)/BigData/SA/JoeHahn
+    name=<your-VCN>
     shape=VM.Standard.E4.Flex
     ocpu=2
-    VCN=JoeHahnVCN in JoeHahn compartment
-    Subnet=public subnet-JoeHahnVCN (Regional)
+    VCN=<your-VCN>
+    Subnet=public subnet-<your-VCN> (Regional)
     Public key=above public key
     Boot volume=256
     Public IP=132.145.171.157
-    Private IP=10.0.0.98
+    Public IP=<VM-Public-IP>
+
+where <VM-Public-IP> is your VM's public IP
 
 4 ssh into VM
 
-    ssh opc@132.145.171.157
+    ssh opc@<VM-Public-IP>
 
 5 create ssh key on VM
 
@@ -65,15 +62,13 @@ and note the public key
 
 and paste public key into your gitlab account
 
-6 install & configure git
+6 install git
 
     sudo yum install git -y
-    git config --global user.email "joe.hahn@oracle.com"
-    git config --global user.name "joe.hahn"
 
 7 clone repo to VM
 
-    git clone git@129.213.160.170:jhahn/mysql-heatwave-demo.git
+    git clone https://github.com/oracle-nace-dsai/mysql-heatwave-forecasting.git
 
 8 install oci cli
 
@@ -90,7 +85,7 @@ using default values except for user & tenancy ocids and region index
 
     cat ~/.oci/oci_api_key_public.pem
 
-into OCI user API keys > Add API key, that key has fingerprint=fb:df:02:6d:fd:55:c8:23:fb:f2:72:25:78:49:c1:9f
+into OCI user API keys > Add API key
 
 11 install mysqlsh
 
@@ -109,14 +104,10 @@ takes a few minutes to download 2Gb file containing 8M records
 
 2 put csv into ObjStore
 
-    ns=orasenatdpltintegration03
-    bucket_name=JoeHahnBucket
+    ns=<your-bucket-namespace>
+    bucket_name=<your-bucket-name>
     source_file=data/crimes.csv
     destination_file=chicago/crimes.csv
-    oci os object put --bucket-name $bucket_name --file $source_file --name $destination_file -ns $ns --force --auth api_key
-
-which generates NotAuthenticated, am unsure why. But instance_principal instead works:
-
     oci os object put --bucket-name $bucket_name --file $source_file --name $destination_file -ns $ns --force --auth instance_principal
 
 3 view first few lines
@@ -127,9 +118,9 @@ and note column names:
 
     ID,Case Number,Date,Block,IUCR,Primary Type,Description,Location Description,Arrest,Domestic,Beat,District,Ward,Community Area,FBI Code,X Coordinate,Y Coordinate,Year,Updated On,Latitude,Longitude,Location
 
-4 create par to object
+4 create par to object crimes.csv
 
-    url=https://objectstorage.us-ashburn-1.oraclecloud.com/p/ECiUvLjZXdvnX7UPpWe7F9v2CTB17ceRpZP7_j14n6i73YNeZjfKfZ-0q9SOnubN/n/orasenatdpltintegration03/b/JoeHahnBucket/o/chicago/crimes.csv
+    url=<par-url>
 
 
 ### create MySQL-Heatwave cluster:
