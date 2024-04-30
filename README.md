@@ -606,11 +606,11 @@ Training completes in 4min
 
     SELECT QEXEC_TEXT FROM performance_schema.rpd_query_stats WHERE QUERY_TEXT='ML_TRAIN' ORDER BY QUERY_ID DESC limit 1;
 
-and note model_handle="Chicago.forecast_train_admin_1695326433"
+and note model_handle="Chicago.forecast_train_admin_<forecast_model_id>"
 
 8 get training report
 
-    set @forecast_model='Chicago.forecast_train_admin_1695736374';
+    set @forecast_model='Chicago.forecast_train_admin_<forecast_model_id>';
     select * from ML_SCHEMA_admin.MODEL_CATALOG where (model_handle=@forecast_model);
 
 9 generate model predictions on validation sample
