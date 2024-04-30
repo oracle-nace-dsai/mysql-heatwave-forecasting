@@ -5,9 +5,8 @@ joe.hahn@oracle.com,<br />
 18 July 2023<br />
 git branch=master
 
-Launch MySQL Heatwave cluster, load data, use AutoML to train an ML model on that data, then validate that model. 
-Adapted from https://apexapps.oracle.com/pls/apex/r/dbpm/livelabs/run-workshop?p210_wid=3306&p210_wec=&session=4933982641293
-
+Launch MySQL Heatwave cluster, load data, use AutoML to train an ML model on that data, then validate that model,
+per this blog post \<blog-post-url-tbd\>.
 
 ### create VCN:
 
